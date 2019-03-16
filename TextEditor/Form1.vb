@@ -7,7 +7,7 @@ Option Strict On
 
 Imports System.IO
 
-Public Class Form1
+Public Class frmEditor
 	Dim path As String = ""
 	Dim previousText As String = ""
 	Dim fileRead As FileStream

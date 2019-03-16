@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class frmEditor
 	Inherits System.Windows.Forms.Form
 
 	'Form overrides dispose to clean up the component list.
@@ -66,7 +66,7 @@ Partial Class Form1
 		Me.mnuNew.Name = "mnuNew"
 		Me.mnuNew.ShortcutKeyDisplayString = "Ctrl-N"
 		Me.mnuNew.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-		Me.mnuNew.Size = New System.Drawing.Size(152, 22)
+		Me.mnuNew.Size = New System.Drawing.Size(143, 22)
 		Me.mnuNew.Text = "&New"
 		Me.mnuNew.ToolTipText = "Create a new file." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by Pressing Alt+F+N or Ctrl+N."
 		'
@@ -75,7 +75,7 @@ Partial Class Form1
 		Me.mnuOpen.Name = "mnuOpen"
 		Me.mnuOpen.ShortcutKeyDisplayString = "Ctrl-O"
 		Me.mnuOpen.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-		Me.mnuOpen.Size = New System.Drawing.Size(152, 22)
+		Me.mnuOpen.Size = New System.Drawing.Size(143, 22)
 		Me.mnuOpen.Text = "&Open"
 		Me.mnuOpen.ToolTipText = "Open a file." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by pressing Alt+F+O or Ctrl+O."
 		'
@@ -83,7 +83,7 @@ Partial Class Form1
 		'
 		Me.mnuSave.Name = "mnuSave"
 		Me.mnuSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-		Me.mnuSave.Size = New System.Drawing.Size(152, 22)
+		Me.mnuSave.Size = New System.Drawing.Size(143, 22)
 		Me.mnuSave.Text = "&Save"
 		Me.mnuSave.ToolTipText = "Save the file to its default location." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by pressing Alt+F+S or Ct" &
 	"rl+S."
@@ -91,20 +91,23 @@ Partial Class Form1
 		'mnuSaveAs
 		'
 		Me.mnuSaveAs.Name = "mnuSaveAs"
-		Me.mnuSaveAs.Size = New System.Drawing.Size(152, 22)
+		Me.mnuSaveAs.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Alt) _
+			Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
+		Me.mnuSaveAs.Size = New System.Drawing.Size(177, 22)
 		Me.mnuSaveAs.Text = "Save &As"
 		Me.mnuSaveAs.ToolTipText = "Save the file to a different location." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by pressing Alt+F+A."
 		'
 		'mnuClose
 		'
 		Me.mnuClose.Name = "mnuClose"
-		Me.mnuClose.Size = New System.Drawing.Size(152, 22)
-		Me.mnuClose.Text = "Close"
+		Me.mnuClose.Size = New System.Drawing.Size(177, 22)
+		Me.mnuClose.Text = "C&lose"
 		'
 		'mnuExit
 		'
 		Me.mnuExit.Name = "mnuExit"
-		Me.mnuExit.Size = New System.Drawing.Size(152, 22)
+		Me.mnuExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
+		Me.mnuExit.Size = New System.Drawing.Size(177, 22)
 		Me.mnuExit.Text = "E&xit"
 		Me.mnuExit.ToolTipText = "Close the Application." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by pressing Alt+F+X."
 		'
@@ -172,7 +175,7 @@ Partial Class Form1
 		'
 		Me.OpenFileDialog1.FileName = "OpenFileDialog1"
 		'
-		'Form1
+		'frmEditor
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -181,7 +184,7 @@ Partial Class Form1
 		Me.Controls.Add(Me.tbInput)
 		Me.Controls.Add(Me.mnControls)
 		Me.MainMenuStrip = Me.mnControls
-		Me.Name = "Form1"
+		Me.Name = "frmEditor"
 		Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
 		Me.Text = "Text Editor: Select a File to Open."
 		Me.mnControls.ResumeLayout(False)
