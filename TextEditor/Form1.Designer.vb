@@ -37,7 +37,7 @@ Partial Class frmEditor
 		Me.mnuPaste = New System.Windows.Forms.ToolStripMenuItem()
 		Me.mnuHelp = New System.Windows.Forms.ToolStripMenuItem()
 		Me.mnuAbout = New System.Windows.Forms.ToolStripMenuItem()
-		Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+		Me.textToolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbInput = New System.Windows.Forms.TextBox()
 		Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
 		Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
@@ -91,23 +91,21 @@ Partial Class frmEditor
 		'mnuSaveAs
 		'
 		Me.mnuSaveAs.Name = "mnuSaveAs"
-		Me.mnuSaveAs.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Alt) _
-			Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-		Me.mnuSaveAs.Size = New System.Drawing.Size(177, 22)
+		Me.mnuSaveAs.Size = New System.Drawing.Size(143, 22)
 		Me.mnuSaveAs.Text = "Save &As"
 		Me.mnuSaveAs.ToolTipText = "Save the file to a different location." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by pressing Alt+F+A."
 		'
 		'mnuClose
 		'
 		Me.mnuClose.Name = "mnuClose"
-		Me.mnuClose.Size = New System.Drawing.Size(177, 22)
+		Me.mnuClose.Size = New System.Drawing.Size(143, 22)
 		Me.mnuClose.Text = "C&lose"
 		'
 		'mnuExit
 		'
 		Me.mnuExit.Name = "mnuExit"
 		Me.mnuExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-		Me.mnuExit.Size = New System.Drawing.Size(177, 22)
+		Me.mnuExit.Size = New System.Drawing.Size(143, 22)
 		Me.mnuExit.Text = "E&xit"
 		Me.mnuExit.ToolTipText = "Close the Application." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Can be accessed by pressing Alt+F+X."
 		'
@@ -169,7 +167,7 @@ Partial Class frmEditor
 		Me.tbInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
 		Me.tbInput.Size = New System.Drawing.Size(536, 289)
 		Me.tbInput.TabIndex = 1
-		Me.ToolTip1.SetToolTip(Me.tbInput, "Enter text that can be saved.")
+		Me.textToolTip.SetToolTip(Me.tbInput, "Enter text that can be saved.")
 		'
 		'OpenFileDialog1
 		'
@@ -208,7 +206,7 @@ Partial Class frmEditor
 	Friend WithEvents mnuCopy As ToolStripMenuItem
 	Friend WithEvents mnuCut As ToolStripMenuItem
 	Friend WithEvents mnuPaste As ToolStripMenuItem
-	Friend WithEvents ToolTip1 As ToolTip
+	Friend WithEvents textToolTip As ToolTip
 	Friend WithEvents tbInput As TextBox
 	Friend WithEvents OpenFileDialog1 As OpenFileDialog
 	Friend WithEvents SaveFileDialog1 As SaveFileDialog

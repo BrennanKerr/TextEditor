@@ -135,4 +135,5 @@ Public Class frmEditor
 
 		Return state
 	End Function
+
 End Class
