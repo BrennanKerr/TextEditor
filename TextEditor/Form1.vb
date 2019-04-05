@@ -19,12 +19,12 @@ Public Class frmEditor
 
 	End Sub
 
-	' displays the information about the application
-	Private Sub mnuAbout_Click(sender As Object, e As EventArgs) Handles mnuAbout.Click
+	' AboutApplication - displays the information about the application
+	Private Sub AboutApplication(sender As Object, e As EventArgs) Handles mnuAbout.Click
 		MessageBox.Show("NETD-2202" + vbCrLf + "Lab # 5" + vbCrLf + "Brennan Kerr", "About")
 	End Sub
 
-	' if the user wants to exit the application
+	' ExitApplication - if the user wants to exit the application
 	Private Sub ExitApplication(sender As Object, e As EventArgs) Handles mnuExit.Click
 		' checks to see if the text hasnt changed
 		If CheckText() = True Then
@@ -36,93 +36,116 @@ Public Class frmEditor
 		End If
 	End Sub
 
-	' if the user wants to open a file
+	' OpenFile - if the user wants to open a file
 	Private Sub OpenFile(sender As Object, e As EventArgs) Handles mnuOpen.Click
-		' checks to see if the file is available
-		If CheckText() = True Then
-			If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-				path = OpenFileDialog1.FileName
-				fileRead = New FileStream(path, FileMode.Open, FileAccess.ReadWrite)
-				reader = New StreamReader(fileRead)
+		Try
+			' checks to see if the file is available
+			If CheckText() = True Then
+				ChooseFile(sender, e)
+			Else
+				SaveFileAs(sender, e)
+				ChooseFile(sender, e)
+			End If
+		Catch ex As Exception
+			Console.WriteLine(ex)
+		End Try
+	End Sub
 
-				tbInput.Text = reader.ReadToEnd
+	' ChooseFile - allows the user to select a file to open
+	Private Sub ChooseFile(sender As Object, e As EventArgs)
+		If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+			path = OpenFileDialog1.FileName
+			fileRead = New FileStream(path, FileMode.Open, FileAccess.ReadWrite)
+			reader = New StreamReader(fileRead)
+
+			tbInput.Text = reader.ReadToEnd
+
+			previousText = tbInput.Text
+
+			reader.Close()
+
+			Text = "Text Editor: " + path + " Open"
+		End If
+	End Sub
+
+	' SaveFile - if the user wants to save the file
+	Private Sub SaveFile(sender As Object, e As EventArgs) Handles mnuSave.Click
+		Try
+			' if the file already exists
+			If File.Exists(path) Then
+				fileWrite = New FileStream(path, FileMode.Create, FileAccess.Write)
+				writer = New StreamWriter(fileWrite)
+
+				writer.Write(tbInput.Text)
+				writer.Close()
 
 				previousText = tbInput.Text
-
-				reader.Close()
-
-				Text = "Text Editor: " + path + " Open"
+				' if the file does not exists (it is a new file), goes to the SaveFileAs method
+			Else
+				SaveFileAs(sender, e)
 			End If
-		Else
-			SaveFileAs(sender, e)
-			OpenFile(sender, e)
-		End If
+		Catch ex As Exception
+			Console.WriteLine(ex)
+		End Try
 	End Sub
 
-	' if the user wants to save the file
-	Private Sub SaveFile(sender As Object, e As EventArgs) Handles mnuSave.Click
-		' if the file already exists
-		If File.Exists(path) Then
-			fileWrite = New FileStream(path, FileMode.Create, FileAccess.Write)
-			writer = New StreamWriter(fileWrite)
-
-			writer.Write(tbInput.Text)
-			writer.Close()
-			' if the file does not exists (it is a new file), goes to the SaveFileAs method
-		Else
-			SaveFileAs(sender, e)
-		End If
-
-		previousText = tbInput.Text
-	End Sub
-
-	' if the user wants to save the file as something else
+	' SaveFileAs - if the user wants to save the file as something else
 	Private Sub SaveFileAs(sender As Object, e As EventArgs) Handles mnuSaveAs.Click
-		If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-			path = SaveFileDialog1.FileName
-			My.Computer.FileSystem.WriteAllText(path, tbInput.Text, False)
-		End If
-
-		previousText = tbInput.Text
+		SaveFileDialog1.Filter = "TXT Files (*.txt*)|*.txt"
+		Try
+			If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
+				path = SaveFileDialog1.FileName
+				My.Computer.FileSystem.WriteAllText(path, tbInput.Text, False)
+				previousText = tbInput.Text
+			End If
+		Catch ex As Exception
+			Console.WriteLine(ex)
+		End Try
 	End Sub
 
-	' if the user wants to create a new file
+	' NewFile - if the user wants to create a new file
 	Private Sub NewFile(sender As Object, e As EventArgs) Handles mnuNew.Click
 
 		' checks to see if the text hasn't been changed
 		If CheckText() = True Then
-			' resets the values and removes all text
-			path = ""
-			tbInput.Text = ""
-
-			' changes the title bar
-			Text = "Text Editor: Select a File to Open"
-
+			CreateBlankFile()
 			' if the text has changed
 		Else
 			SaveFileAs(sender, e)
-			NewFile(sender, e)
+			CreateBlankFile()
 		End If
 	End Sub
 
-	' cuts the text
+	' CreateBlankFile - creates a blank file when a new file is requested.
+	Private Sub CreateBlankFile()
+		' resets the values and removes all text
+		path = ""
+		tbInput.Text = ""
+
+		' changes the title bar
+		Text = "Text Editor: Select a File to Open"
+
+	End Sub
+
+	' CutText - cremoves the text from the screen and saves it to the clipboard
 	Private Sub CutText(sender As Object, e As EventArgs) Handles mnuCut.Click
 		' cuts the text
 		tbInput.Cut()
 	End Sub
 
-	' if the user wants to copy text
+	' CopyText - saves the text to the clipboard
 	Private Sub CopyTest(sender As Object, e As EventArgs) Handles mnuCopy.Click
 		tbInput.Copy()
 	End Sub
 
-	' if the user wants to past text
+	' PasteText - put whatever text is in the clipboard to the desired location
 	Private Sub PasteText(sender As Object, e As EventArgs) Handles mnuPaste.Click
 		' gets the copied text
 		tbInput.Paste()
 	End Sub
 
-	' if the text has been altered
+	' CheckText - checks to see if the text has been altered since it was opened
+	' @return	state : boolean - true if it has not been altered, false if it has
 	Private Function CheckText() As Boolean
 		Dim state As Boolean
 
@@ -136,4 +159,13 @@ Public Class frmEditor
 		Return state
 	End Function
 
+	'' CloseFile - Closes the currently opened file
+	Private Sub CloseFile(sender As Object, e As EventArgs) Handles mnuClose.Click
+		Try
+			' closes and opens a new file
+			NewFile(sender, e)
+		Catch ex As Exception
+			Console.WriteLine(ex)
+		End Try
+	End Sub
 End Class
