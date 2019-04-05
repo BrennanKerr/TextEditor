@@ -2,18 +2,17 @@
 ' Brennan Kerr
 ' February 12th, 2019
 
-
 Option Strict On
 
-Imports System.IO
+Imports System.IO   ' allows opening, editing, and saving of files
+' FileSteam, StreamReader, StreamWriter are included in this namespace
 
 Public Class frmEditor
-	Dim path As String = ""
-	Dim previousText As String = ""
-	Dim fileRead As FileStream
-	Dim fileWrite As FileStream
-	Dim reader As StreamReader
-	Dim writer As StreamWriter
+	Dim path As String = ""             ' the path of the opened file
+	Dim previousText As String = ""     ' the text of the file at last save point/opening
+	Dim currentFile As FileStream       ' the stream of the file
+	Dim reader As StreamReader          ' allows the file to be read (depending on permission)
+	Dim writer As StreamWriter          ' allows writing to the file (Depending on permissions)
 
 	Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -55,8 +54,8 @@ Public Class frmEditor
 	Private Sub ChooseFile(sender As Object, e As EventArgs)
 		If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
 			path = OpenFileDialog1.FileName
-			fileRead = New FileStream(path, FileMode.Open, FileAccess.ReadWrite)
-			reader = New StreamReader(fileRead)
+			currentFile = New FileStream(path, FileMode.Open, FileAccess.ReadWrite)
+			reader = New StreamReader(currentFile)
 
 			tbInput.Text = reader.ReadToEnd
 
@@ -73,8 +72,8 @@ Public Class frmEditor
 		Try
 			' if the file already exists
 			If File.Exists(path) Then
-				fileWrite = New FileStream(path, FileMode.Create, FileAccess.Write)
-				writer = New StreamWriter(fileWrite)
+				currentFile = New FileStream(path, FileMode.Create, FileAccess.Write)
+				writer = New StreamWriter(currentFile)
 
 				writer.Write(tbInput.Text)
 				writer.Close()
@@ -121,10 +120,10 @@ Public Class frmEditor
 		' resets the values and removes all text
 		path = ""
 		tbInput.Text = ""
+		previousText = ""
 
 		' changes the title bar
 		Text = "Text Editor: Select a File to Open"
-
 	End Sub
 
 	' CutText - cremoves the text from the screen and saves it to the clipboard
