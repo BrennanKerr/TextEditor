@@ -31,7 +31,7 @@ Public Class frmEditor
 			' if the text has changed
 		Else
 			SaveFileAs(sender, e)
-			Close()
+			Close() ' closes the form (application in this case)
 		End If
 	End Sub
 
@@ -52,8 +52,10 @@ Public Class frmEditor
 
 	' ChooseFile - allows the user to select a file to open
 	Private Sub ChooseFile(sender As Object, e As EventArgs)
-		If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-			path = OpenFileDialog1.FileName
+		' opens the file dialog box
+		' if okay is pressed,open the desired file
+		If OpenDialog.ShowDialog() = DialogResult.OK Then
+			path = OpenDialog.FileName
 			currentFile = New FileStream(path, FileMode.Open, FileAccess.ReadWrite)
 			reader = New StreamReader(currentFile)
 
@@ -90,10 +92,12 @@ Public Class frmEditor
 
 	' SaveFileAs - if the user wants to save the file as something else
 	Private Sub SaveFileAs(sender As Object, e As EventArgs) Handles mnuSaveAs.Click
-		SaveFileDialog1.Filter = "TXT Files (*.txt*)|*.txt"
+		SaveDialog.Filter = "TXT Files (*.txt*)|*.txt"
 		Try
-			If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-				path = SaveFileDialog1.FileName
+			' opens the save dialog box
+			' if ok is pressed, save the file
+			If SaveDialog.ShowDialog() = DialogResult.OK Then
+				path = SaveDialog.FileName
 				My.Computer.FileSystem.WriteAllText(path, tbInput.Text, False)
 				previousText = tbInput.Text
 			End If

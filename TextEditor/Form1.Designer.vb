@@ -39,8 +39,8 @@ Partial Class frmEditor
 		Me.mnuAbout = New System.Windows.Forms.ToolStripMenuItem()
 		Me.textToolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbInput = New System.Windows.Forms.TextBox()
-		Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-		Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+		Me.OpenDialog = New System.Windows.Forms.OpenFileDialog()
+		Me.SaveDialog = New System.Windows.Forms.SaveFileDialog()
 		Me.mnControls.SuspendLayout()
 		Me.SuspendLayout()
 		'
@@ -100,6 +100,7 @@ Partial Class frmEditor
 		Me.mnuClose.Name = "mnuClose"
 		Me.mnuClose.Size = New System.Drawing.Size(143, 22)
 		Me.mnuClose.Text = "C&lose"
+		Me.mnuClose.ToolTipText = "Close the current file and create a new one."
 		'
 		'mnuExit
 		'
@@ -169,9 +170,9 @@ Partial Class frmEditor
 		Me.tbInput.TabIndex = 1
 		Me.textToolTip.SetToolTip(Me.tbInput, "Enter text that can be saved.")
 		'
-		'OpenFileDialog1
+		'OpenDialog
 		'
-		Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+		Me.OpenDialog.FileName = "OpenFileDialog1"
 		'
 		'frmEditor
 		'
@@ -181,10 +182,12 @@ Partial Class frmEditor
 		Me.ClientSize = New System.Drawing.Size(536, 313)
 		Me.Controls.Add(Me.tbInput)
 		Me.Controls.Add(Me.mnControls)
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
 		Me.MainMenuStrip = Me.mnControls
 		Me.Name = "frmEditor"
 		Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
 		Me.Text = "Text Editor: Select a File to Open."
+		Me.textToolTip.SetToolTip(Me, "Form Editor for txt Files.")
 		Me.mnControls.ResumeLayout(False)
 		Me.mnControls.PerformLayout()
 		Me.ResumeLayout(False)
@@ -208,6 +211,6 @@ Partial Class frmEditor
 	Friend WithEvents mnuPaste As ToolStripMenuItem
 	Friend WithEvents textToolTip As ToolTip
 	Friend WithEvents tbInput As TextBox
-	Friend WithEvents OpenFileDialog1 As OpenFileDialog
-	Friend WithEvents SaveFileDialog1 As SaveFileDialog
+	Friend WithEvents OpenDialog As OpenFileDialog
+	Friend WithEvents SaveDialog As SaveFileDialog
 End Class
